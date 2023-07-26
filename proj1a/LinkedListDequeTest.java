@@ -1,4 +1,7 @@
+import org.junit.Test;
+
 /** Performs some basic linked list tests. */
+
 public class LinkedListDequeTest {
 
   /* Utility method for printing out empty checks. */
@@ -89,6 +92,18 @@ public class LinkedListDequeTest {
 
     printTestStatus(passed);
 
+  }
+
+  @Test
+  public void add_removeTest() {
+    LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
+    lld1.addLast(0);
+    lld1.addLast(1);
+    lld1.addLast(2);
+    lld1.addLast(3);
+    lld1.addLast(4);
+    Integer a = lld1.removeFirst();
+    System.out.println(a);
   }
 
   public static void main(String[] args) {

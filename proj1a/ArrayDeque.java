@@ -14,7 +14,7 @@
  */
 
 public class ArrayDeque<T> {
-  final int initCapacity = 8;
+  final private int initCapacity = 8;
   private T[] items;
   private int size;
   private int capacity;
@@ -26,16 +26,16 @@ public class ArrayDeque<T> {
     capacity = initCapacity;
   }
 
-  /** Creates a deep copy of other */
-  public ArrayDeque(ArrayDeque other) {
-    this.size = other.size;
-    this.capacity = other.capacity;
-    items = (T[]) new Object[capacity];
-    T[] originalItems = (T[]) other.items;
-    for (int i = 0; i < size - 1; i++) {
-      items[i] = originalItems[i];
-    }
-  }
+  // /** Creates a deep copy of other */
+  // public ArrayDeque(ArrayDeque other) {
+  // this.size = other.size;
+  // this.capacity = other.capacity;
+  // items = (T[]) new Object[capacity];
+  // T[] originalItems = (T[]) other.items;
+  // for (int i = 0; i < size - 1; i++) {
+  // items[i] = originalItems[i];
+  // }
+  // }
 
   /** update the capacity of the Deque */
   private void updateCapacity(int newCapacity) {
@@ -80,7 +80,7 @@ public class ArrayDeque<T> {
   }
 
   /** delete an element at position i in the linear table */
-  public void delete(int i) {
+  private void delete(int i) {
     for (int j = i; j < size - 1; j++) {
       items[j] = items[j + 1];
     }
@@ -91,7 +91,7 @@ public class ArrayDeque<T> {
   }
 
   /** Gets the item at the given index */
-  public T get(int index) {
+  private T get(int index) {
     if (index < 0 || index > size - 1) {
       return null;
     }

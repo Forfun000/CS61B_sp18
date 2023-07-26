@@ -21,28 +21,31 @@ public class LinkedListDeque<T> {
   /** Creates an empty LinkedListDeque */
   public LinkedListDeque() {
     sentinel = new TNode();
-    sentinel = new TNode(null, sentinel, sentinel);
+    sentinel.next = sentinel;
+    sentinel.prev = sentinel;
     size = 0;
   }
 
-  /** Creates a LinkedListDeque with a Node */
-  public LinkedListDeque(T item) {
-    sentinel = new TNode();
-    sentinel = new TNode(null, sentinel, sentinel);
-    sentinel.next = new TNode(item, sentinel, sentinel);
-    sentinel.prev = sentinel.next;
-    size = 1;
-  }
+  // /** Creates a LinkedListDeque with a Node */
+  // public LinkedListDeque(T item) {
+  // sentinel = new TNode();
+  // sentinel.next = sentinel;
+  // sentinel.prev = sentinel;
+  // sentinel.next = new TNode(item, sentinel, sentinel);
+  // sentinel.prev = sentinel.next;
+  // size = 1;
+  // }
 
-  /** Creating an entirely new copy of other */
-  public LinkedListDeque(LinkedListDeque<T> other) {
-    sentinel = new TNode();
-    sentinel = new TNode(null, sentinel, sentinel);
-    size = 0;
-    for (int i = 0; i < other.size; i++) {
-      addLast(other.get(i));
-    }
-  }
+  // /** Creating an entirely new copy of other */
+  // public LinkedListDeque(LinkedListDeque<T> other) {
+  // sentinel = new TNode();
+  // sentinel.next = sentinel;
+  // sentinel.prev = sentinel;
+  // size = 0;
+  // for (int i = 0; i < other.size; i++) {
+  // addLast(other.get(i));
+  // }
+  // }
 
   /** Adds an item of type T to the front of the deque. */
   public void addFirst(T item) {
@@ -130,9 +133,16 @@ public class LinkedListDeque<T> {
 
   /** Same as get, but uses recursion. */
   public T getRecursive(int index) {
-    if (index == 0) {
-      return sentinel.next.item;
+    if (index < 0 || index >= size) {
+      return null;
     }
-    return new LinkedListDeque<T>(this.removeFirst()).getRecursive(index - 1);
+    return getHelper(index, sentinel.next);
+  }
+
+  private T getHelper(int index, TNode items) {
+    if (index == 0) {
+      return items.item;
+    }
+    return getHelper(index - 1, items.next);
   }
 }
