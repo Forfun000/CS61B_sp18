@@ -91,7 +91,7 @@ public class ArrayDeque<T> {
   }
 
   /** Gets the item at the given index */
-  private T get(int index) {
+  public T get(int index) {
     if (index < 0 || index > size - 1) {
       return null;
     }
