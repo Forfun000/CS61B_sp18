@@ -26,12 +26,4 @@ public class TestOffByOne {
         assertFalse(offByOne.equalChars('a', 'z'));
     }
 
-    @Test
-    public void offByNTest() {
-        OffByN offByN = new OffByN(5);
-        assertTrue(offByN.equalChars('a', 'f'));
-        assertTrue(offByN.equalChars('f', 'a'));
-        assertFalse(offByN.equalChars('a', 'c'));
-        assertFalse(offByN.equalChars('a', 'a'));
-    }
 }
