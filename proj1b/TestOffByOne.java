@@ -3,10 +3,35 @@ import static org.junit.Assert.*;
 
 public class TestOffByOne {
     /*
-    // You must use this CharacterComparator and not instantiate
-    // new ones, or the autograder might be upset.
-    static CharacterComparator offByOne = new OffByOne();
+     * // You must use this CharacterComparator and not instantiate
+     * // new ones, or the autograder might be upset.
+     * static CharacterComparator offByOne = new OffByOne();
+     * 
+     * // Your tests go here.
+     * Uncomment this class once you've created your CharacterComparator interface
+     * and OffByOne class.
+     **/
+    static OffByOne offByOne = new OffByOne();
 
-    // Your tests go here.
-    Uncomment this class once you've created your CharacterComparator interface and OffByOne class. **/
+    @Test
+    public void offByOneTest() {
+        assertTrue(offByOne.equalChars('a', 'b'));
+        assertTrue(offByOne.equalChars('A', 'B'));
+        assertTrue(offByOne.equalChars('g', 'f'));
+        assertTrue(offByOne.equalChars('3', '2'));
+        assertTrue(offByOne.equalChars('&', '%'));
+        assertFalse(offByOne.equalChars('&', ')'));
+        assertFalse(offByOne.equalChars('A', 'C'));
+        assertFalse(offByOne.equalChars('b', 'C'));
+        assertFalse(offByOne.equalChars('a', 'z'));
+    }
+
+    @Test
+    public void offByNTest() {
+        OffByN offByN = new OffByN(5);
+        assertTrue(offByN.equalChars('a', 'f'));
+        assertTrue(offByN.equalChars('f', 'a'));
+        assertFalse(offByN.equalChars('a', 'c'));
+        assertFalse(offByN.equalChars('a', 'a'));
+    }
 }
