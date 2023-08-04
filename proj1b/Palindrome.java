@@ -12,7 +12,7 @@ public class Palindrome {
         return isPalindromeHelper(deque);
     }
 
-    public boolean isPalindromeHelper(Deque<Character> deque) {
+    private boolean isPalindromeHelper(Deque<Character> deque) {
         if (deque.size() <= 1) {
             return true;
         } else if (deque.removeFirst() != deque.removeLast()) {
