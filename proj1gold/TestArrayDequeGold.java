@@ -14,29 +14,29 @@ public class TestArrayDequeGold {
                 solArraydeque.addFirst(i);
                 operationConsequence += "addFirst(" + i + ")\n";
                 assertEquals(operationConsequence,
-                        stuArraydeque.get(0),
-                        solArraydeque.get(0));
+                        solArraydeque.get(0),
+                        stuArraydeque.get(0));
             } else if (numberBetweenZeroAndOne < 0.5
                     && numberBetweenZeroAndOne >= 0.25) {
                 stuArraydeque.addLast(i);
                 solArraydeque.addLast(i);
                 operationConsequence += "addLast(" + i + ")\n";
                 assertEquals(operationConsequence,
-                        stuArraydeque.get(stuArraydeque.size() - 1),
-                        solArraydeque.get(solArraydeque.size() - 1));
+                        solArraydeque.get(solArraydeque.size() - 1),
+                        stuArraydeque.get(stuArraydeque.size() - 1));
             } else if (numberBetweenZeroAndOne < 0.75
                     && numberBetweenZeroAndOne >= 0.5
                     && solArraydeque.size() > 0) {
                 operationConsequence += "removeFirst(): " + solArraydeque.get(0) + "\n";
                 assertEquals(operationConsequence,
-                        stuArraydeque.removeFirst(),
-                        solArraydeque.removeFirst());
+                        solArraydeque.removeFirst(),
+                        stuArraydeque.removeFirst());
             } else if (numberBetweenZeroAndOne >= 0.75
                     && solArraydeque.size() > 0) {
                 operationConsequence += "removeLast(): " + solArraydeque.getLast() + "\n";
                 assertEquals(operationConsequence,
-                        stuArraydeque.removeLast(),
-                        solArraydeque.removeLast());
+                        solArraydeque.removeLast(),
+                        stuArraydeque.removeLast());
             }
         }
     }
