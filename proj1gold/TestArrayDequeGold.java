@@ -42,6 +42,9 @@ public class TestArrayDequeGold {
         }
     }
 }*/
+
+/**注意添加注释*/
+/**可能是添加的i为int类型而不是integer */
 import static org.junit.Assert.*;
 import org.junit.Test;
 
