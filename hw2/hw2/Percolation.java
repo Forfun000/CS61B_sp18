@@ -38,7 +38,7 @@ public class Percolation {
         }
         world[row][col] = true;
         numberOfOpenSites++;
-        int[][] next = { { -1, 0 }, { 0, -1 }, { 1, 0 }, { 0, 1 } };
+        int[][] next = { { 1, 0 }, { 0, -1 }, { -1, 0 }, { 0, 1 } };
         for (int i = 0; i < 4; i++) {
             int x = row + next[i][0];
             int y = col + next[i][1];
@@ -50,13 +50,20 @@ public class Percolation {
                 continue;
             }
             if (x > N - 1) {
-                if (!percolates()) {
+                if (UF.connected(xyTo1D(row, col), N * N)) {
                     UF.union(N * N + 1, xyTo1D(row, col));
                 }
                 continue;
             }
             if (isOpen(x, y) && !UF.connected(xyTo1D(row, col), xyTo1D(x, y))) {
                 UF.union(xyTo1D(row, col), xyTo1D(x, y));
+            }
+        }
+        if (!percolates()) {
+            for (int j = 0; j < N; j++) {
+                if (isFull(N - 1, j)) {
+                    UF.union(N * N, N * N + 1);
+                }
             }
         }
     }

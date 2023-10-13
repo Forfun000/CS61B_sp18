@@ -8,12 +8,11 @@ import org.junit.Test;
 public class TestPercolation {
     @Test
     public void test1() {
-        Percolation p = new Percolation(3);
+        Percolation p = new Percolation(2);
+        p.open(1, 0);
         p.open(0, 0);
-        p.open(0, 1);
-        p.open(0, 2);
         assertTrue(p.percolates());
-        assertEquals(p.numberOfOpenSites(), 3);
+        assertEquals(p.numberOfOpenSites(), 2);
     }
 
     @Test
