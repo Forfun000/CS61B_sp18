@@ -50,7 +50,7 @@ public class Percolation {
                 continue;
             }
             if (x > N - 1) {
-                if (UF.connected(xyTo1D(row, col), N * N)) {
+                if (!percolates()) {
                     UF.union(N * N + 1, xyTo1D(row, col));
                 }
                 continue;

@@ -18,7 +18,7 @@ public class TestPercolation {
 
     @Test
     public void test2() {
-        PercolationStats stats = new PercolationStats(20, 100, new PercolationFactory());
+        PercolationStats stats = new PercolationStats(20, 10, new PercolationFactory());
         System.out.println(stats.mean());
     }
 }
