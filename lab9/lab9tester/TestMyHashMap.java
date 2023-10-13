@@ -22,13 +22,13 @@ public class TestMyHashMap {
         }
     }
 
-    //assumes put/size/containsKey/get work
+    // assumes put/size/containsKey/get work
     @Test
     public void sanityClearTest() {
         MyHashMap<String, Integer> b = new MyHashMap<String, Integer>();
         for (int i = 0; i < 455; i++) {
             b.put("hi" + i, 1);
-            //make sure put is working via containsKey and get
+            // make sure put is working via containsKey and get
             assertTrue(null != b.get("hi" + i)
                     && b.containsKey("hi" + i));
         }
@@ -73,7 +73,7 @@ public class TestMyHashMap {
         assertEquals(456, b.size());
     }
 
-    //assumes get/containskey work
+    // assumes get/containskey work
     @Test
     public void sanityPutTest() {
         MyHashMap<String, Integer> b = new MyHashMap<String, Integer>();

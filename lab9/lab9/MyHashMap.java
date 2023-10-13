@@ -1,13 +1,14 @@
 package lab9;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
 /**
- *  A hash table-backed Map implementation. Provides amortized constant time
- *  access to elements via get(), remove(), and put() in the best case.
+ * A hash table-backed Map implementation. Provides amortized constant time
+ * access to elements via get(), remove(), and put() in the best case.
  *
- *  @author Your name here
+ * @author Your name here
  */
 public class MyHashMap<K, V> implements Map61B<K, V> {
 
@@ -35,9 +36,10 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         }
     }
 
-    /** Computes the hash function of the given key. Consists of
-     *  computing the hashcode, followed by modding by the number of buckets.
-     *  To handle negative numbers properly, uses floorMod instead of %.
+    /**
+     * Computes the hash function of the given key. Consists of
+     * computing the hashcode, followed by modding by the number of buckets.
+     * To handle negative numbers properly, uses floorMod instead of %.
      */
     private int hash(K key) {
         if (key == null) {
@@ -48,24 +50,49 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         return Math.floorMod(key.hashCode(), numBuckets);
     }
 
-    /* Returns the value to which the specified key is mapped, or null if this
+    /*
+     * Returns the value to which the specified key is mapped, or null if this
      * map contains no mapping for the key.
      */
     @Override
     public V get(K key) {
-        throw new UnsupportedOperationException();
+        if (key == null) {
+            throw new IllegalArgumentException("Null key not allowed.");
+        }
+        return buckets[hash(key)].get(key);
     }
 
     /* Associates the specified value with the specified key in this map. */
     @Override
     public void put(K key, V value) {
-        throw new UnsupportedOperationException();
+        if (key == null) {
+            throw new IllegalArgumentException("Null key not allowed.");
+        }
+        if (value == null) {
+            throw new IllegalArgumentException("Null values not allowed.");
+        }
+        if (loadFactor() >= MAX_LF) {
+            ArrayMap<K, V>[] oldBuckets = buckets;
+            ArrayMap<K, V>[] buckets = new ArrayMap[oldBuckets.length * 2];
+            clear();
+            for (ArrayMap<K, V> arrayMap : oldBuckets) {
+                for (K keyK : arrayMap.keySet()) {
+                    buckets[hash(keyK)].put(keyK, arrayMap.get(keyK));
+                }
+            }
+        }
+        if (buckets[hash(key)].containsKey(key)) {
+            buckets[hash(key)].remove(key);
+            size--;
+        }
+        buckets[hash(key)].put(key, value);
+        size++;
     }
 
     /* Returns the number of key-value mappings in this map. */
     @Override
     public int size() {
-        throw new UnsupportedOperationException();
+        return size;
     }
 
     //////////////// EVERYTHING BELOW THIS LINE IS OPTIONAL ////////////////
@@ -73,27 +100,37 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     /* Returns a Set view of the keys contained in this map. */
     @Override
     public Set<K> keySet() {
-        throw new UnsupportedOperationException();
+        Set<K> keySet = new HashSet<>();
+        for (ArrayMap<K, V> arrayMap : buckets) {
+            for (K keyK : arrayMap.keySet()) {
+                keySet.add(keyK);
+            }
+        }
+        return keySet;
     }
 
-    /* Removes the mapping for the specified key from this map if exists.
+    /*
+     * Removes the mapping for the specified key from this map if exists.
      * Not required for this lab. If you don't implement this, throw an
-     * UnsupportedOperationException. */
+     * UnsupportedOperationException.
+     */
     @Override
     public V remove(K key) {
-        throw new UnsupportedOperationException();
+        return buckets[hash(key)].remove(key);
     }
 
-    /* Removes the entry for the specified key only if it is currently mapped to
+    /*
+     * Removes the entry for the specified key only if it is currently mapped to
      * the specified value. Not required for this lab. If you don't implement this,
-     * throw an UnsupportedOperationException.*/
+     * throw an UnsupportedOperationException.
+     */
     @Override
     public V remove(K key, V value) {
-        throw new UnsupportedOperationException();
+        return buckets[hash(key)].remove(key, value);
     }
 
     @Override
     public Iterator<K> iterator() {
-        throw new UnsupportedOperationException();
+        return keySet().iterator();
     }
 }
