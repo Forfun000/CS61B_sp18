@@ -1,12 +1,5 @@
 package hw2;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertTrue;
-
-import javax.management.RuntimeErrorException;
-
-import org.junit.Test;
-
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
@@ -15,7 +8,7 @@ public class Percolation {
     private boolean[][] world;
     private int N;
 
-    private WeightedQuickUnionUF UF;
+    private WeightedQuickUnionUF UF, UFwithoutBackWash;
     private int numberOfOpenSites;
 
     public Percolation(int N) {
@@ -26,6 +19,7 @@ public class Percolation {
         this.numberOfOpenSites = 0;
         world = new boolean[N][N];
         UF = new WeightedQuickUnionUF(N * N + 2);
+        UFwithoutBackWash = new WeightedQuickUnionUF(N * N + 2);
     }
 
     /** open the site (row, col) if it is not open already */
@@ -47,23 +41,16 @@ public class Percolation {
             }
             if (x < 0) {
                 UF.union(N * N, xyTo1D(row, col));
+                UFwithoutBackWash.union(N * N, xyTo1D(row, col));
                 continue;
             }
             if (x > N - 1) {
-                if (UF.connected(xyTo1D(row, col), N * N)) {
-                    UF.union(N * N + 1, xyTo1D(row, col));
-                }
+                UF.union(N * N + 1, xyTo1D(row, col));
                 continue;
             }
-            if (isOpen(x, y) && !UF.connected(xyTo1D(row, col), xyTo1D(x, y))) {
+            if (isOpen(x, y) && !UFwithoutBackWash.connected(xyTo1D(row, col), xyTo1D(x, y))) {
                 UF.union(xyTo1D(row, col), xyTo1D(x, y));
-            }
-        }
-        if (!percolates()) {
-            for (int j = 0; j < N; j++) {
-                if (isFull(N - 1, j)) {
-                    UF.union(N * N, N * N + 1);
-                }
+                UFwithoutBackWash.union(xyTo1D(row, col), xyTo1D(x, y));
             }
         }
     }
@@ -81,7 +68,7 @@ public class Percolation {
         if (!(0 <= row && row < N) || !(0 <= col && col < N)) {
             throw new IndexOutOfBoundsException("row or col is out of bounds");
         }
-        return UF.connected(xyTo1D(row, col), N * N);
+        return UFwithoutBackWash.connected(xyTo1D(row, col), N * N);
     }
 
     /** change position to an unique integer */
