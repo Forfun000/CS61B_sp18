@@ -50,7 +50,7 @@ public class TestComplexOomage {
         // Your code here.
         int deadlyListSize = 10000;
         for (int i = 0; i < deadlyListSize; i++) {
-            int N = StdRandom.uniform(1, 10);
+            int N = StdRandom.uniform(4, 10);
             ArrayList<Integer> params = new ArrayList<>(N);
             for (int j = 0; j < N - 4; j++) {
                 params.add(StdRandom.uniform(0, 255));
